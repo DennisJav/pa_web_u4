@@ -12,8 +12,6 @@ public class MainStreamsParalelo {
 
 		long inicio = System .currentTimeMillis();
 		
-		
-		
 		List<Integer> lista = new ArrayList<>();
 		//List<String> listaS = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class MainStreamsParalelo {
 	}
 	
 	private static String convertirNumero(Integer numero) {
-//		System.out.println(Thread.currentThread().getName());
+		System.out.println(Thread.currentThread().getName());
 		
 		try {
 			TimeUnit.MILLISECONDS.sleep(30);
