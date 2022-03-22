@@ -31,7 +31,7 @@ public class MainStreams {
 	}
 	
 	private static String convertirNumero(Integer numero) {
-		//System.out.println(Thread.currentThread().getName());
+		System.out.println(Thread.currentThread().getName());
 		
 		try {
 			TimeUnit.MILLISECONDS.sleep(30);
