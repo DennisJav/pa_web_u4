@@ -12,7 +12,7 @@ import ec.edu.uce.service.IEstudianteService;
 
 
 @Controller
-@RequestMapping("/estudiantes")//Dar un nombre en plurarl al recurso
+@RequestMapping("/estudiantes")
 public class EstudianteController {
 
     @Autowired
