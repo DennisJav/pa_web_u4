@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PRUEBA</title>
+</head>
+
+<body>
+
+	<table>
+		<!--Cabezera de tabla-->
+		<thead>
+			<tr>
+				<!--th tmb sirve para columnas-->
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+			</tr>
+		</thead>
+		<!--Cuerpo de tabla-->
+		<tbody>
+			<!--th:each tmb sirve como un for each-->
+			<!--for (Integer valor:listaInteger)-->
+			<!--estudiantes esta en el controller en el modelo add atribute-->
+			<tr th:each="estudiante : ${estudiantes}">
+				<td th:text="${estudiante.id}"> </td>
+				<td th:text="${estudiante.nombre}"> </td>
+				<td th:text="${estudiante.apellido}"> </td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</body>
+
+</htmls>

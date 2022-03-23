@@ -23,7 +23,19 @@ public class Estudiante {
     @Column(name = "estu_apellido")
     private String apellido;
 
-    //Metodos GET y SET
+    
+    
+    
+    public Estudiante() {
+
+	}
+
+	public Estudiante(Integer id, String nombre, String apellido) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+
+	//Metodos GET y SET
     public Integer getId() {
         return id;
     }

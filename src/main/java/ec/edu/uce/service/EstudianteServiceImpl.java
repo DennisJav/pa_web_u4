@@ -22,9 +22,9 @@ public class EstudianteServiceImpl implements IEstudianteService{
 	}
 
 	@Override
-	public List<Estudiante> buscarEstudiantesTodos(Integer id) {
+	public List<Estudiante> buscarEstudiantesTodos() {
 		// TODO Auto-generated method stub
-		return this.estudianteRepo.buscarEstudiantesTodos(id);
+		return this.estudianteRepo.buscarEstudiantesTodos();
 	}
 
 	@Override

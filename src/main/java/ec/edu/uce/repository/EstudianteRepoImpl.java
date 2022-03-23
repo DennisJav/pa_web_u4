@@ -25,15 +25,11 @@ public class EstudianteRepoImpl implements IEstudianteRepo{
 	}
 
 	@Override
-	public List<Estudiante> buscarEstudiantesTodos(Integer id) {
+	public List<Estudiante> buscarEstudiantesTodos() {
 		// TODO Auto-generated method stub
 		TypedQuery<Estudiante> miQuery = this.entityManager
-				.createQuery("SELECT e FROM Estudiante e WHERE e.id =:valor",Estudiante.class);
-		miQuery.setParameter("valor", id);
-		
-		List<Estudiante> listaDetalles = miQuery.getResultList();
-
-		return listaDetalles;
+				.createQuery("SELECT e FROM Estudiante e ",Estudiante.class);
+		return miQuery.getResultList();
 	}
 
 	@Override
