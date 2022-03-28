@@ -8,23 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ec.edu.uce.modelo.Estudiante;
 import ec.edu.uce.service.IEstudianteService;
 
 @Controller // Notacion para controller
-@RequestMapping("/estudiantes") // Siempre en plural
+@RequestMapping("/estudiantes/") // Siempre en plural
 public class EstudianteController {
 
 	@Autowired
 	private IEstudianteService estudianteService;
 
-	@GetMapping("/buscar/{idEstudiante}") // se crea la variable para enviar que se generalice
+	@GetMapping("buscar/{idEstudiante}") // se crea la variable para enviar que se generalice
 	// @RequestMapping(path = "/buscar/{idEstudiante}", method = RequestMethod.GET)
 	public String obtenerUsuario(@PathVariable("idEstudiante") Integer idEstudiante, Model modelo) { // se envia el
 																										// modelo
@@ -39,27 +42,55 @@ public class EstudianteController {
 
 	// localhost:8081/estudiantes/buscar/todos
 
-	@GetMapping("/buscar/todos")
+	@GetMapping("todos")
 	public String buscarEstudiantesTodos(Model modelo) {
 		List<Estudiante> listaEstudiantes = this.estudianteService.buscarEstudiantesTodos();
 		modelo.addAttribute("estudiantes", listaEstudiantes);
 		return "lista";
 	}
 
-	@GetMapping("/estudianteNuevo")
-	public String obtenerPaginaIngresoDatos() {
-
+	@GetMapping("estudianteNuevo")
+	public String obtenerPaginaIngresoDatos(Estudiante estudiante) {
 		return "estudianteNuevo";
 	}
 	
-	@PostMapping("/insertar")
-	public String insertarEstudiante(Estudiante estudiante, BindingResult result, Model modelo) {
-		this.estudianteService.insertarEstudiante(estudiante);
-		return "lista";
+	@PostMapping("insertar")
+	public String insertarEstudiante(Estudiante estudiante, BindingResult result, Model modelo, RedirectAttributes redirectAttrs) {
+		this.estudianteService.insertarEstudiante(estudiante); 
+		
+		redirectAttrs.addFlashAttribute("mensaje","Estudiante guardado");
+		
+		return "redirect:todos";
 	}
 
+	@GetMapping("estudianteActualiza/{idEstudiante}")
+	public String obtenerPaginaActualizarDatos(@PathVariable("idEstudiante") Integer idEstudiante, Estudiante estudiante, Model modelo) {
+		Estudiante estu=this.estudianteService.buscar(idEstudiante);
+		modelo.addAttribute("estu", estu);
+		return "estudianteActualiza";
+	}
+	
+	@PutMapping("actualizar/{idEstudiante}")
+	public String  actualizarEstudiante(@PathVariable("idEstudiante") Integer idEstudiante, Estudiante estudiante, Model modelo) {
+		estudiante.setId(idEstudiante);
+		this.estudianteService.actualizarEstudiante(estudiante);
+		return "redirect:/estudiantes/todos";
+	}
 	
 	
+	
+	@DeleteMapping("borrar/{idEstudiante}")
+	public String eliminarEstudiante(@PathVariable("idEstudiante") Integer idEstudiante,  Model modelo) {
+	
+		
+		
+		this.estudianteService.borrarEstudiante(idEstudiante);
+		
+		List<Estudiante> listaEstudiantes = this.estudianteService.buscarEstudiantesTodos();
+		modelo.addAttribute("estudiantes", listaEstudiantes);
+		
+		return "lista";
+	}
 	
 	
 }
